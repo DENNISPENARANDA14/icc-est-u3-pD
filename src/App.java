@@ -1,7 +1,48 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-        runEjerciciosPD();
+        //System.out.println("Hello, World!");
+        //runEjerciciosPD();
+        runMaze();
+
+        
+    }
+    private static void runMaze() {
+        boolean[][] predefinedMaze = {
+            {true, true, true, true, false, true},
+            {true, true, false, true, false, true},
+            {false, true, true, true, true, true},
+            {true, true, false, true, false, true},
+            {true, true, false, true, false, true},
+            {true, true, true, true, true, true},
+        };
+        Maze maze = new Maze(predefinedMaze);
+        System.out.println("laberinto cargado correctamente");
+        maze.printMaze();
+        Cell start = new Cell(0, 0);
+        Cell end = new Cell(5, 5);
+
+        List<MazeSolver> solvers = Arrays.asList(
+            new MazeSolverREcursive()
+        );
+        MazeSolver solver = solvers.get(0);
+        List<Cell> path;
+        path = solver.getPath(maze.getGrid(), start, end);
+        System.out.println("Camino Encontrado con 2 opciones:");
+        System.out.println(path);
+
+        List<MazeSolver> solvers1 = Arrays.asList(
+            new MazeSolverRecursive4()
+        );
+        MazeSolver solver1 = solvers.get(0);
+        List<Cell> path1;
+        path = solver.getPath(maze.getGrid(), start, end);
+        System.out.println("Camino Encontrado con 4 opciones:");
+        System.out.println(path);
+
     }
     
     private static void runEjerciciosPD() {
