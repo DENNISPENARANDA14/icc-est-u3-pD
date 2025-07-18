@@ -5,14 +5,14 @@ import java.util.Set;
 
 public class MazeSolverRecursive4 implements MazeSolver {
     @Override
-    public List<Cell> getPath(boolean[][] grid, Cell start, Cell end) {
+    public MazeResult getPath(boolean[][] grid, Cell start, Cell end) {
         List<Cell> path = new ArrayList<>();
         Set<Cell> visited = new HashSet<>();
 
         if (findPath(grid, start.row, start.col, end, path, visited, start, end)) {
-            return path;
+            return new MazeResult(path, visited); // Retornar el resultado con el camino encontrado y las celdas visitadas
         }
-        return new ArrayList<>();
+        return new MazeResult(path, visited);
     }
 
     private boolean findPath(boolean[][] grid, int row, int col, Cell end, List<Cell> path, Set<Cell> visited,
@@ -44,8 +44,7 @@ public class MazeSolverRecursive4 implements MazeSolver {
             path.add(cell);
             return true;
         }
-        if (findPath(grid, row - 1, col, end, path, visited, start, finalEnd)) { //
-        //Arriba
+        if (findPath(grid, row - 1, col, end, path, visited, start, finalEnd)) { // Arriba
             path.add(cell);
             return true;
         }

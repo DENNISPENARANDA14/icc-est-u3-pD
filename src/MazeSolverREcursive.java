@@ -1,19 +1,20 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class MazeSolverREcursive implements MazeSolver {
     @Override
-    public List<Cell> getPath(boolean[][] grid, Cell start, Cell end) {
+    public MazeResult getPath(boolean[][] grid, Cell start, Cell end) {
         List<Cell> path = new ArrayList<>();
         // validamos si es igual a nulo retornamos new ArrayList
         if (grid == null || grid.length == 0) {
-            return new ArrayList<>();
+            return new MazeResult(path, new HashSet<>()); // Retornar lista vacía si hay parámetros nulos
         }
         
         if (findPath(grid, start, end, path)) {
-            return path;
+            return new MazeResult(path, new HashSet<>()); // Retornar el resultado con el camino encontrado y las celdas visitadas
         }
-        return new ArrayList<>();
+        return new MazeResult(path, new HashSet<>()); // Retornar lista vacía si no se encuentra un camino
     }
     private boolean findPath(boolean[][] grid, Cell start, Cell end, List<Cell> path) {
         // valido si la celda inicio su fila esta dentro de mi grid

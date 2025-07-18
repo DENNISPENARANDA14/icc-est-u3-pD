@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,22 +12,24 @@ public class App {
     }
     private static void runMaze() {
         boolean[][] predefinedMaze = {
-            {true, true, true, true, false, true},
-            {true, true, false, true, false, true},
-            {false, true, true, true, true, true},
-            {true, true, false, true, false, true},
-            {true, true, false, true, false, true},
-            {true, true, true, true, true, true},
+            {true, true, true, true},
+            {false, true, false, true},
+            {true, true, false, false},
+            {true, true, true, true},
         };
         Maze maze = new Maze(predefinedMaze);
+        System.out.println("DENNIS ALEJANDRO PENARANDA TELLO");
         System.out.println("laberinto cargado correctamente");
         maze.printMaze();
         Cell start = new Cell(0, 0);
-        Cell end = new Cell(5, 5);
+        Cell end = new Cell(3, 3);
 
+        
         List<MazeSolver> solvers = Arrays.asList(
-            new MazeSolverREcursive()
+            //new MazeSolverREcursive();
+            new MazeSolverRecursiveCompletoBT()
         );
+         /* 
         MazeSolver solver = solvers.get(0);
         List<Cell> path;
         path = solver.getPath(maze.getGrid(), start, end);
@@ -43,8 +45,27 @@ public class App {
         System.out.println("Camino Encontrado con 4 opciones:");
         System.out.println(path);
 
+        List<MazeSolver> solvers2 = Arrays.asList(
+            new MazeSolverRecursiveCompletoBT()
+        );
+        MazeSolver solver2 = solvers2.get(0);
+        List<Cell> path2;
+        path2 = solver2.getPath(maze.getGrid(), start, end);
+        System.out.println("Camino Encontrado con opciones:");
+        System.out.println(path2);*/
+        
+        MazeSolver solver3 = solvers.get(0);
+        MazeResult resultado;
+        resultado = solver3.getPath(maze.getGrid(), start, end);
+        System.out.println("Camino Encontrado:");
+        System.out.println(resultado.getPath());
+        System.out.println("Celdas visitadas:");
+        maze.printMazeWithVisited(resultado.getVisited());
+        System.out.println("camino recorrido:");
+        maze.printMazeWithPath(resultado.getPath());
+        
     }
-    
+
     private static void runEjerciciosPD() {
         EjerciciosPD ejercicios = new EjerciciosPD();
         System.out.println("EjerciciosPD instance created.");
